@@ -30,6 +30,7 @@ class Decorate(object):
         self.name = theme_name
         self._themes = None
         self._config = None
+        self._theme_path = None
         self._additional_css = []
         self._additional_js = []
 
@@ -113,13 +114,13 @@ class Decorate(object):
     def theme_list(self):
         if self._themes is None:
             result = {}
-            for name, processor, path in self._theme_discover():
+            for name, processor, spec, path in self._theme_discover():
                 new_name = name
                 c = 1
                 while new_name in result:
                     new_name = '%s_%d' % (name, c)
                     c += 1
-                result[new_name] = {'processor': processor, 'path': path}
+                result[new_name] = {'processor': processor, 'spec': spec, 'path': path}
             self._themes = result
         return self._themes
 
@@ -143,7 +144,7 @@ class Decorate(object):
                 processor = self._get_processor(fullpath)
                 if processor is None:
                     continue
-                yield name, processor[0], processor[1]
+                yield name, processor[0], processor[1], fullpath
 
     def _get_processor(self, path):
         for ext, processor in (('json', json), ('yaml', yaml), ('yml', yaml)):
@@ -157,8 +158,9 @@ class Decorate(object):
             raise NotFoundThemeDecorateException()
         theme = self.theme_list[self.name]
 
-        with open(theme['path']) as fd:
+        with open(theme['spec']) as fd:
             self._config = theme['processor'].load(fd)
+            self._theme_path = theme['path']
 
     @property
     def config(self):
@@ -168,4 +170,6 @@ class Decorate(object):
 
     def copy_assets(self, output):
         for asset in self.css + self.javascript:
-            shutil.copyfile(os.path.join(self.path, asset), output)
+            shutil.copyfile(os.path.join(self._theme_path, asset), output)
+        for asset in self._additional_css + self._additional_js:
+            shutil.copyfile(asset, output)
