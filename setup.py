@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 
-version = (0, 0, 1)
+version = (0, 0, 3)
 str_version = '.'.join(str(v) for v in version)
 
 
@@ -70,6 +70,14 @@ setup(
     license='MIT',
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
+    package_data={
+        'decorate': [
+            'themes/*/*.yaml',
+            'themes/*/*.json',
+            'themes/*/*.css',
+            'themes/*/*.js',
+        ]
+    },
     zip_safe=False,
     extras_require={
         'develop': [
