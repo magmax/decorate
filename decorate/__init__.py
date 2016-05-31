@@ -30,6 +30,8 @@ class Decorate(object):
         self.name = theme_name
         self._themes = None
         self._config = None
+        self._additional_css = []
+        self._additional_js = []
 
     @property
     def css(self):
@@ -42,6 +44,12 @@ class Decorate(object):
     @property
     def mutators(self):
         return self.config.get('classes') or {}
+
+    def add_css(self, css):
+        self._additional_css.append(css)
+
+    def add_js(self, js):
+        self._additional_js.append(js)
 
     def apply_to_dir(self, source, target):
         if not os.path.exists(target):
@@ -74,7 +82,7 @@ class Decorate(object):
                     el.attrib.get('class', '').split() + classes
                 )
 
-        for css in self.css:
+        for css in self.css + self._additional_css:
             item = etree.Element(
                 'link',
                 dict(
@@ -85,7 +93,7 @@ class Decorate(object):
             item.text = ''
             head.append(item)
 
-        for js in self.javascript:
+        for js in self.javascript + self._additional_js:
             item = etree.Element(
                 'script',
                 dict(
