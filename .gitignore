@@ -2,6 +2,9 @@ venv/
 .eggs/
 tmp/
 .cache/
+build/
+dist/
+output/
 *.egg-info/
 *~
 *.pyc
