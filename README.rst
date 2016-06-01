@@ -31,7 +31,7 @@ You can say: "Well... I could have done the same by using JavaScript", and you'd
 
 
 What was it intended for?
-========================
+=========================
 
 I was writting a static test runner, and I decided not to tie it to any style. This was a spin off. Indeed, it could be run as command line...
 
