@@ -170,6 +170,8 @@ class Decorate(object):
 
     def copy_assets(self, output):
         for asset in self.css + self.javascript:
-            shutil.copyfile(os.path.join(self._theme_path, asset), output)
+            if not asset.startswith(('http://', 'https://')):
+                shutil.copyfile(os.path.join(self._theme_path, asset), output)
         for asset in self._additional_css + self._additional_js:
-            shutil.copyfile(asset, output)
+            if not asset.startswith(('http://', 'https://')):
+                shutil.copyfile(asset, output)
