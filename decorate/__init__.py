@@ -174,5 +174,5 @@ class Decorate(object):
                 shutil.copyfile(os.path.join(self._theme_path, asset), output)
         for asset in self._additional_css + self._additional_js:
             if not asset.startswith(('http://', 'https://')):
-                _, filename = os.path.basename(asset)
+                filename = os.path.basename(asset)
                 shutil.copyfile(asset, os.path.join(output, basename))
