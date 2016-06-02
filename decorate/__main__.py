@@ -5,6 +5,7 @@ from decorate import Decorate
 
 logger = logging.getLogger(__name__)
 
+
 def configure_logging(level):
     LOG_LEVELS = [logging.WARNING, logging.INFO, logging.DEBUG]
     log_level = LOG_LEVELS[min(level, len(LOG_LEVELS) - 1)]
@@ -13,6 +14,7 @@ def configure_logging(level):
         format='[%(asctime)-15s] %(levelname)s %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
     )
+
 
 def main():
     parser = argparse.ArgumentParser(description='Decorate HTML with themes')

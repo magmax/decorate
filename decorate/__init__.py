@@ -120,7 +120,11 @@ class Decorate(object):
                 while new_name in result:
                     new_name = '%s_%d' % (name, c)
                     c += 1
-                result[new_name] = {'processor': processor, 'spec': spec, 'path': path}
+                result[new_name] = {
+                    'processor': processor,
+                    'spec': spec,
+                    'path': path,
+                }
             self._themes = result
         return self._themes
 
@@ -175,4 +179,4 @@ class Decorate(object):
         for asset in self._additional_css + self._additional_js:
             if not asset.startswith(('http://', 'https://')):
                 filename = os.path.basename(asset)
-                shutil.copyfile(asset, os.path.join(output, basename))
+                shutil.copyfile(asset, os.path.join(output, filename))
