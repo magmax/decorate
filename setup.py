@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 
-version = (0, 0, 16)
+version = (0, 0, 17)
 str_version = '.'.join(str(v) for v in version)
 
 

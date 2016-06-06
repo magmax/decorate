@@ -99,7 +99,7 @@ class Decorate(object):
                 'script',
                 dict(
                     rel="src",
-                    href=js,
+                    src=js,
                 )
             )
             item.text = ''
