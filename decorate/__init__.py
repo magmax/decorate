@@ -79,9 +79,15 @@ class Decorate(object):
         for selector, classes in self.mutators.items():
             sel = CSSSelector(selector)
             for el in sel(tree):
-                el.attrib['class'] = ' '.join(
-                    el.attrib.get('class', '').split() + classes
-                )
+                base = el.attrib.get('class', '').split()
+                if "decorate-hook" in base:
+                    index = base.index("decorate-hook")
+                    pre = base[:index]
+                    post = base[index:]
+                    v = pre + classes + post
+                else:
+                    v = base + classes
+                el.attrib['class'] = ' '.join(v)
 
         for css in self.css + self._additional_css:
             item = etree.Element(
