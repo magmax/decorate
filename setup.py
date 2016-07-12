@@ -6,8 +6,7 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 
-version = (0, 0, 17)
-str_version = '.'.join(str(v) for v in version)
+version = "1.0.0"
 
 
 def read_file(filename):
@@ -40,7 +39,7 @@ class PyTest(TestCommand):
 
 setup(
     name='decorate',
-    version=str_version,
+    version=version,
     description="Decorate HTML docs by adding them classes by theme",
     long_description=read_file('README.rst'),
     cmdclass={'test': PyTest},
